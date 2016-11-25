@@ -1,12 +1,12 @@
 import _ from 'underscore';
 import gulp from 'gulp';
-import conflict from 'gulp-conflict';
-import template from 'gulp-template';
-import rename from 'gulp-rename';
 import _string from 'underscore.string';
 import inquirer from 'inquirer';
 import path from 'path';
 import childProcess from 'child_process';
+import loadPlugins from 'gulp-load-plugins';
+
+const $ = loadPlugins();
 
 const defaults = (function defaults() {
     const workingDirName = path.basename(process.cwd());
@@ -48,14 +48,14 @@ gulp.task('default', (done) => {
             answers = _.defaults(answers, defaults);
             answers.appNameSlug = _string.slugify(answers.appName);
             gulp.src(path.join(__dirname, '/templates/**'))
-                .pipe(template(answers))
-                .pipe(rename((file) => {
+                .pipe($.template(answers))
+                .pipe($.rename((file) => {
                     file.basename = _.template(file.basename)(answers);
                     if (file.basename[0] === '_') {
                         file.basename = `.${file.basename.slice(1)}`;
                     }
                 }))
-                .pipe(conflict('./'))
+                .pipe($.conflict('./'))
                 .pipe(gulp.dest('./'))
                 .on('end', () => {
                     childProcess.spawnSync('yarn', [], {
