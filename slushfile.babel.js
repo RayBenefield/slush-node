@@ -47,7 +47,10 @@ gulp.task('default', (done) => {
             }
             answers = _.defaults(answers, defaults);
             answers.appNameSlug = _string.slugify(answers.appName);
-            gulp.src(path.join(__dirname, '/templates/**'))
+
+            $.git.init();
+
+            const stream = gulp.src(path.join(__dirname, '/templates/**'))
                 .pipe($.template(answers))
                 .pipe($.rename((file) => {
                     file.basename = _.template(file.basename)(answers);
@@ -56,12 +59,18 @@ gulp.task('default', (done) => {
                     }
                 }))
                 .pipe($.conflict('./'))
-                .pipe(gulp.dest('./'))
-                .on('end', () => {
-                    childProcess.spawnSync('yarn', [], {
-                        stdio: 'inherit', // <== IMPORTANT: use this option to inherit the parent's environment
+                .pipe(gulp.dest('./'));
+
+            stream.on('end', () => {
+                childProcess.spawnSync('yarn', [], { stdio: 'inherit' });
+
+                $.git.exec({ args: 'add .' }, () => {
+                    $.git.exec({ args: 'commit -m "v0.0.1"' }, () => {
+                        $.git.tag('v0.0.1', 'Initial setup.');
+                        $.shell('yarn config set version-git-message "v%s"');
+                        done();
                     });
-                    done();
                 });
+            });
         });
 });
