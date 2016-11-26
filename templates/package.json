@@ -24,7 +24,10 @@
         "test": "jest --watch",
         "lint": "eslint -c .eslintrc src/",
         "build": "babel src -d dist",
-        "clean": "rimraf dist"
+        "clean": "rimraf dist",
+        "patch": "npm version patch -m 'v%s' && js-beautify -r package.json && git commit -a --amend --no-edit",
+        "minor": "npm version minor -m 'v%s' && js-beautify -r package.json && git commit -a --amend --no-edit",
+        "major": "npm version major -m 'v%s' && js-beautify -r package.json && git commit -a --amend --no-edit"
     },
     "dependencies": {
         "config": "^1.21.0",
@@ -50,6 +53,7 @@
         "gulp-plumber": "^1.1.0",
         "gulp-shell": "^0.5.2",
         "jest": "^17.0.3",
+        "js-beautify": "^1.6.4",
         "rimraf": "^2.5.4"
     },
     "babel": {
