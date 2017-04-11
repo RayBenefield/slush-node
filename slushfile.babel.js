@@ -21,7 +21,7 @@ const defaults = (function defaults() {
     };
 }());
 
-gulp.task('default', (done) => {
+const loadTemplates = folder => (done) => {
     const prompts = [{
         name: 'appName',
         message: 'What is the name of your project?',
@@ -50,7 +50,7 @@ gulp.task('default', (done) => {
 
             $.git.init();
 
-            const stream = gulp.src(path.join(__dirname, '/templates/**'))
+            const stream = gulp.src(path.join(__dirname, `/templates/${folder}/**`))
                 .pipe($.template(answers))
                 .pipe($.rename((file) => {
                     file.basename = _.template(file.basename)(answers);
@@ -73,4 +73,6 @@ gulp.task('default', (done) => {
                 });
             });
         });
-});
+}
+
+gulp.task('default', loadTemplates('default'));
