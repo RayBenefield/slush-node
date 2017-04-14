@@ -1,0 +1,6 @@
+if ! [ -x "$(command -v yarn)" ]; then
+    npm install --global yarn
+fi
+
+yarn
+yarn run bootstrap

@@ -76,3 +76,4 @@ const loadTemplates = folder => (done) => {
 }
 
 gulp.task('default', loadTemplates('default'));
+gulp.task('mono', loadTemplates('mono'));
