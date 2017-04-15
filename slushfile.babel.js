@@ -51,9 +51,12 @@ const loadTemplates = folder => (done) => {
             $.git.init();
 
             const stream = gulp.src(path.join(__dirname, `/templates/${folder}/**`))
-                .pipe($.template(answers))
+                .pipe($.template(answers, {
+                    interpolate: /__(.+?)__/g,
+                }))
                 .pipe($.rename((file) => {
                     file.basename = _.template(file.basename)(answers);
+                    file.dirname = _.template(file.dirname)(answers);
                     if (file.basename[0] === '_') {
                         file.basename = `.${file.basename.slice(1)}`;
                     }
@@ -77,3 +80,4 @@ const loadTemplates = folder => (done) => {
 
 gulp.task('default', loadTemplates('default'));
 gulp.task('mono', loadTemplates('mono'));
+gulp.task('micro', loadTemplates('micro'));

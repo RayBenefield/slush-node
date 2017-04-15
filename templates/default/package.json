@@ -1,21 +1,21 @@
 {
-    "name": "<%= appNameSlug %>",
-    "description": "<%= appDescription %>",
-    "version": "<%= appVersion %>",
-    "homepage": "https://github.com/<%= userName %>/<%= appNameSlug %>",
+    "name": "__appNameSlug__",
+    "description": "__appDescription__",
+    "version": "__appVersion__",
+    "homepage": "https://github.com/__userName__/__appNameSlug__",
     "author": {
-        "name": "<%= authorName %>",
-        "email": "<%= authorEmail %>"
+        "name": "__authorName__",
+        "email": "__authorEmail__"
     },
     "repository": {
         "type": "git",
-        "url": "git://github.com/<%= userName %>/<%= appNameSlug %>.git"
+        "url": "git://github.com/__userName__/__appNameSlug__.git"
     },
     "bugs": {
-        "url": "https://github.com/<%= userName %>/<%= appNameSlug %>/issues"
+        "url": "https://github.com/__userName__/__appNameSlug__/issues"
     },
-    "license": "<%= license %>",
-    "main": "src/<%= appNameSlug %>.js",
+    "license": "__license__",
+    "main": "src/__appNameSlug__.js",
     "engines": {
         "node": ">= 0.10.26",
         "npm": ">=1.4.3"
