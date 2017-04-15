@@ -14,7 +14,8 @@
     "scripts": {
         "dev": "nodemon src/index.js --exec babel-node",
         "docs": "aglio -i readme.md -s --theme-variables streak --theme-template triple --no-theme-condense",
-        "test": "jest --watch",
+        "mock": "drakov -f readme.md -p __port__",
+        "test": "dredd readme.md http://127.0.0.1:__port__",
         "lint": "eslint -c .eslintrc src/",
         "build": "babel src -d dist",
         "clean": "rimraf dist",

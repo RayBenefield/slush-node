@@ -34,6 +34,11 @@ const loadTemplates = folder => (done) => {
     // If we are building a microservice then add API Blueprint stuff
     if (folder === 'micro') {
         prompts.push({
+            name: 'port',
+            message: 'What port will this service be on?',
+            default: 8000,
+        });
+        prompts.push({
             name: 'serviceDescription',
             message: 'What is the summary description for the service?',
         });
