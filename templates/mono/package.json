@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "bootstrap": "echo && lerna bootstrap && echo && echo 'Symlinking all .bin exectuables' && ln -fs `pwd`/node_modules/.bin/* services/*/node_modules/.bin && echo"
+        "bootstrap": "echo && lerna bootstrap && echo && echo 'Symlinking all .bin exectuables' && for service in services/*; do ln -fs `pwd`/node_modules/.bin/* $service/node_modules/.bin; done && echo"
     },
     "devDependencies": {
         "babel-cli": "^6.18.0",
