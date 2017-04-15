@@ -1,8 +1,8 @@
-import _ from 'underscore';
 import gulp from 'gulp';
-import _string from 'underscore.string';
-import inquirer from 'inquirer';
 import path from 'path';
+import _ from 'underscore';
+import inquirer from 'inquirer';
+import _string from 'underscore.string';
 import childProcess from 'child_process';
 import loadPlugins from 'gulp-load-plugins';
 
@@ -29,15 +29,56 @@ const loadTemplates = folder => (done) => {
     }, {
         name: 'appDescription',
         message: 'What is the description?',
-    }, {
+    }];
+
+    // If we are building a microservice then add API Blueprint stuff
+    if (folder === 'micro') {
+        prompts.push({
+            name: 'serviceDescription',
+            message: 'What is the summary description for the service?',
+        });
+        prompts.push({
+            name: 'task',
+            message: 'What is the task this service will do?',
+        });
+        prompts.push({
+            name: 'taskDescription',
+            type: 'editor',
+            message: 'Enter the detailed description for the task.',
+        });
+        prompts.push({
+            name: 'verb',
+            type: 'list',
+            message: 'What HTTP verb will be used to access this task?',
+            choices: ['GET', 'POST'],
+        });
+        prompts.push({
+            name: 'dataStructures',
+            type: 'editor',
+            message: 'Create the data structures for this service.',
+        });
+        prompts.push({
+            name: 'requestStructure',
+            message: 'Which data structure is used for the request?',
+            default: 'object',
+        });
+        prompts.push({
+            name: 'responseStructure',
+            message: 'Which data structure is used for the request?',
+            default: 'object',
+        });
+    }
+
+    // Add confirm last
+    prompts.push({
         type: 'confirm',
         name: 'moveon',
         message: 'Continue?',
-    }];
+    });
 
     // Ask
-    inquirer.prompt(prompts,
-        (answers) => {
+    inquirer.prompt(prompts)
+        .then((answers) => {
             _.templateSettings = {
                 interpolate: /__(.+?)__/g,
             };
