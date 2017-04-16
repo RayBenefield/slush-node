@@ -69,7 +69,7 @@ const loadTemplates = folder => (done) => {
         });
         prompts.push({
             name: 'responseStructure',
-            message: 'Which data structure is used for the request?',
+            message: 'Which data structure is used for the response?',
             default: 'object',
         });
     }
@@ -114,8 +114,9 @@ const loadTemplates = folder => (done) => {
             stream.on('end', () => {
                 childProcess.spawnSync('yarn', [], { stdio: 'inherit' });
 
+                const service = (folder === 'micro') ? ` for ${answers.appNameSlug}.` : '';
                 $.git.exec({ args: 'add .' }, () => {
-                    $.git.exec({ args: 'commit -m "v0.0.1"' }, () => {
+                    $.git.exec({ args: `commit -m "v0.0.1${service}"` }, () => {
                         $.git.tag('v0.0.1', 'Initial setup.');
                         $.shell('yarn config set version-git-message "v%s"');
                         done();
