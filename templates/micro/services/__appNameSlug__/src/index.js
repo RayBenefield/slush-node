@@ -9,8 +9,11 @@ server.use(restify.bodyParser());
 server.use(validation);
 
 server.__lowerVerb__('/', (req, res) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(200, {});
+    Observable.from([req.params])
+        .subscribe((output) => {
+            res.setHeader('Content-Type', 'application/json');
+            res.send(200, output);
+        });
 });
 
 server.name = '__appNameSlug__';
