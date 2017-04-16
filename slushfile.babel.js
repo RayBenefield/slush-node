@@ -93,6 +93,7 @@ const loadTemplates = folder => (done) => {
             }
             answers = _.defaults(answers, defaults);
             answers.appNameSlug = _string.slugify(answers.appName);
+            answers.lowerVerb = answers.verb.toLowerCase();
 
             $.git.init();
 

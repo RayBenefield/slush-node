@@ -1,4 +1,6 @@
 import restify from 'restify';
+import { Observable } from 'rxjs';
+import { RxHttpRequest } from 'rx-http-request';
 import validation from './validation';
 
 const server = restify.createServer();
@@ -6,8 +8,9 @@ server.use(restify.queryParser());
 server.use(restify.bodyParser());
 server.use(validation);
 
-server.get('/', (req, res) => {
-    res.send(200);
+server.__lowerVerb__('/', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(200, {});
 });
 
 server.name = '__appNameSlug__';
