@@ -29,6 +29,9 @@ const loadTemplates = folder => (done) => {
     }, {
         name: 'appDescription',
         message: 'What is the description?',
+    }, {
+        name: 'serviceDescription',
+        message: 'What is the summary description for the service?',
     }];
 
     // If we are building a microservice then add API Blueprint stuff
@@ -36,11 +39,7 @@ const loadTemplates = folder => (done) => {
         prompts.push({
             name: 'port',
             message: 'What port will this service be on?',
-            default: 8000,
-        });
-        prompts.push({
-            name: 'serviceDescription',
-            message: 'What is the summary description for the service?',
+            default: 0,
         });
         prompts.push({
             name: 'task',
@@ -93,7 +92,10 @@ const loadTemplates = folder => (done) => {
             }
             answers = _.defaults(answers, defaults);
             answers.appNameSlug = _string.slugify(answers.appName);
-            answers.lowerVerb = answers.verb.toLowerCase();
+
+            if (answers.verb) (answers.lowerVerb = answers.verb.toLowerCase());
+            if (answers.serverPort) (answers.serverPort = parseInt(answers.port, 10) + 8000);
+            if (answers.docsPort) (parseInt(answers.port, 10) + 3000);
 
             $.git.init();
 
@@ -129,3 +131,4 @@ const loadTemplates = folder => (done) => {
 gulp.task('default', loadTemplates('default'));
 gulp.task('mono', loadTemplates('mono'));
 gulp.task('micro', loadTemplates('micro'));
+gulp.task('module', loadTemplates('module'));
