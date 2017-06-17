@@ -29,13 +29,21 @@ const loadTemplates = folder => (done) => {
     }, {
         name: 'appDescription',
         message: 'What is the description?',
-    }, {
-        name: 'serviceDescription',
-        message: 'What is the summary description for the service?',
     }];
+
+    if (folder === 'cli') {
+        prompts.push({
+            name: 'command',
+            message: 'What command will run this tool?',
+        });
+    }
 
     // If we are building a microservice then add API Blueprint stuff
     if (folder === 'micro') {
+        prompts.push({
+            name: 'serviceDescription',
+            message: 'What is the summary description for the service?',
+        });
         prompts.push({
             name: 'port',
             message: 'What port will this service be on?',
@@ -54,7 +62,7 @@ const loadTemplates = folder => (done) => {
             name: 'verb',
             type: 'list',
             message: 'What HTTP verb will be used to access this task?',
-            choices: ['GET', 'POST'],
+            choices: ['POST', 'GET'],
         });
         prompts.push({
             name: 'dataStructures',
@@ -94,8 +102,8 @@ const loadTemplates = folder => (done) => {
             answers.appNameSlug = _string.slugify(answers.appName);
 
             if (answers.verb) (answers.lowerVerb = answers.verb.toLowerCase());
-            if (answers.serverPort) (answers.serverPort = parseInt(answers.port, 10) + 8000);
-            if (answers.docsPort) (parseInt(answers.port, 10) + 3000);
+            if (answers.port) (answers.serverPort = parseInt(answers.port, 10) + 8000);
+            if (answers.port) (answers.docsPort = parseInt(answers.port, 10) + 3000);
 
             $.git.init();
 
@@ -125,10 +133,13 @@ const loadTemplates = folder => (done) => {
                     });
                 });
             });
-        });
+        })
+        .catch(console.log);
 }
 
 gulp.task('default', loadTemplates('default'));
+gulp.task('cli', loadTemplates('cli'));
 gulp.task('mono', loadTemplates('mono'));
 gulp.task('micro', loadTemplates('micro'));
 gulp.task('module', loadTemplates('module'));
+gulp.task('snippet', loadTemplates('snippet'));

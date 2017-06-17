@@ -1,0 +1,55 @@
+{
+    "name": "@devex/__appNameSlug__",
+    "description": "__appDescription__",
+    "version": "__appVersion__",
+    "homepage": "https://github.com/__userName__/__appNameSlug__",
+    "author": {
+        "name": "__authorName__",
+        "email": "__authorEmail__"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/__userName__/__appNameSlug__.git"
+    },
+    "bugs": {
+        "url": "https://github.com/__userName__/__appNameSlug__/issues"
+    },
+    "license": "__license__",
+    "main": "src/index.js",
+    "engines": {
+        "node": ">= 8.1.2",
+        "npm": ">=1.4.3"
+    },
+    "scripts": {
+        "prebuild": "npm run clean && mkdir -p dist/ && cp package.json yarn.lock LICENSE readme.md dist/",
+        "build": "babel src/ -d dist/src --ignore '**/*.test.js'",
+        "clean": "rimraf dist",
+        "lint": "eslint -c .eslintrc.json src/",
+        "test": "nodemon src/index.test.js --exec babel-node",
+        "patch": "npm version patch -m 'v%s' && js-beautify -r package.json && git commit -a --amend --no-edit",
+        "minor": "npm version minor -m 'v%s' && js-beautify -r package.json && git commit -a --amend --no-edit",
+        "major": "npm version major -m 'v%s' && js-beautify -r package.json && git commit -a --amend --no-edit"
+    },
+    "dependencies": {
+        "lodash": "^2.4.0"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.24.1",
+        "babel-preset-es2015": "^6.24.1",
+        "eslint": "^3.19.0",
+        "eslint-config-airbnb": "^15.0.1",
+        "eslint-plugin-import": "^2.3.0",
+        "eslint-plugin-jsx-a11y": "^5.0.3",
+        "eslint-plugin-react": "^7.1.0",
+        "js-beautify": "^1.6.14",
+        "nodemon": "^1.11.0",
+        "rimraf": "^2.6.1",
+        "rxt": "^0.2.5",
+        "should": "^11.2.1"
+    },
+    "babel": {
+        "presets": [
+            "es2015"
+        ]
+    }
+}
