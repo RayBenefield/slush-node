@@ -15,7 +15,7 @@ const defaults = (function defaults() {
         appName: workingDirName,
         userName: 'RayBenefield',
         authorName: 'Raymond Benefield',
-        authorEmail: 'raymond.benefield@wellsfargo.com',
+        authorEmail: 'raymond.benefield@gmail.com',
         appVersion: '0.0.1',
         license: 'MIT',
     };
