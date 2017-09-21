@@ -107,7 +107,8 @@ const loadTemplates = folder => (done) => {
 
             $.git.init();
 
-            const stream = gulp.src(path.join(__dirname, `/templates/${folder}/**`))
+            const stream = gulp.src(path.join(__dirname, `/templates/default/**`))
+                .pipe($.addSrc.append(path.join(__dirname, `/templates/${folder}/**`)))
                 .pipe($.template(answers, {
                     interpolate: /__(.+?)__/g,
                 }))
