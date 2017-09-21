@@ -118,6 +118,9 @@ const loadTemplates = folder => (done) => {
                     if (file.basename[0] === '_') {
                         file.basename = `.${file.basename.slice(1)}`;
                     }
+                    if (file.dirname[0] === '_') {
+                        file.dirname = `.${file.dirname.slice(1)}`;
+                    }
                 }))
                 .pipe($.conflict('./'))
                 .pipe(gulp.dest('./'));
