@@ -1,6 +1,7 @@
 import gulp from 'gulp';
 import path from 'path';
 import _ from 'underscore';
+import minimist from 'minimist';
 import inquirer from 'inquirer';
 import _string from 'underscore.string';
 import childProcess from 'child_process';
@@ -88,8 +89,13 @@ const loadTemplates = folder => (done) => {
         message: 'Continue?',
     });
 
+    const argv = minimist(process.argv.slice(2));
+    const getAnswers = argv.name
+        ? Promise.resolve({ appName: argv.name, appDescription: argv.description || '', moveon: true })
+        : inquirer.prompt(prompts);
+
     // Ask
-    inquirer.prompt(prompts)
+    getAnswers
         .then((answers) => {
             _.templateSettings = {
                 interpolate: /__(.+?)__/g,
