@@ -31,7 +31,7 @@
         "major": "npm version major -m 'v%s' && js-beautify -r package.json && git commit -a --amend --no-edit"
     },
     "dependencies": {
-        "lodash": "^2.4.0"
+        "lodash": "^4.17.15"
     },
     "devDependencies": {
         "babel-cli": "^6.24.1",
