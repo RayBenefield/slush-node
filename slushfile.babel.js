@@ -17,7 +17,7 @@ const defaults = (function defaults() {
         userName: 'RayBenefield',
         authorName: 'Raymond Benefield',
         authorEmail: 'raymond.benefield@gmail.com',
-        appVersion: '0.0.1',
+        appVersion: '0.0.0',
         license: 'MIT',
     };
 }());
@@ -136,9 +136,7 @@ const loadTemplates = folder => (done) => {
 
                 const service = (folder === 'micro') ? ` for ${answers.appNameSlug}.` : '';
                 $.git.exec({ args: 'add .' }, () => {
-                    $.git.exec({ args: `commit -m "v0.0.1${service}"` }, () => {
-                        $.git.tag('v0.0.1', 'Initial setup.');
-                        $.shell('yarn config set version-git-message "v%s"');
+                    $.git.exec({ args: `commit -m "Initial Commit."` }, () => {
                         done();
                     });
                 });

@@ -1,0 +1,25 @@
+{
+    "presets": [
+        "env",
+        "react",
+        "stage-0"
+    ],
+    "plugins": [
+        "transform-class-properties",
+        "transform-decorators",
+        "transform-react-constant-elements",
+        "transform-react-inline-elements",
+        ["wildcard", {
+            "exts": [
+                "js",
+                "es6",
+                "es",
+                "jsx",
+                "javascript",
+                "json",
+                "html"
+            ],
+            "noCamelCase": true
+        }]
+    ]
+}
